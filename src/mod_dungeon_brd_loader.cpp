@@ -1,16 +1,16 @@
 /*
- * mod-brd-balance loader.
+ * mod-dungeon-brd loader.
  *
  * AzerothCore looks up a loader symbol derived from the module's folder name: for folder
- * "mod-brd-balance" that symbol is exactly "Addmod_brd_balanceScripts". If you clone the
+ * "mod-dungeon-brd" that symbol is exactly "Addmod_dungeon_brdScripts". If you clone the
  * repo under a different folder name, rename this function to match.
  *
  * Released under the MIT License.
  */
 
-void AddBrdBalanceScripts();
+void AddDungeonBrdScripts();
 
-void Addmod_brd_balanceScripts()
+void Addmod_dungeon_brdScripts()
 {
-    AddBrdBalanceScripts();
+    AddDungeonBrdScripts();
 }

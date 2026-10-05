@@ -1,5 +1,5 @@
 /*
- * mod-brd-balance
+ * mod-dungeon-brd
  *
  * Balance tweaks for Blackrock Depths (map 230).
  *
@@ -54,33 +54,33 @@ namespace
             }
             catch (...)
             {
-                LOG_ERROR("server.loading", "mod-brd-balance: ignoring bad IgnoreEntries value '{}'", token);
+                LOG_ERROR("server.loading", "mod-dungeon-brd: ignoring bad IgnoreEntries value '{}'", token);
             }
         }
         return entries;
     }
 }
 
-class BrdBalanceWorldScript : public WorldScript
+class DungeonBrdWorldScript : public WorldScript
 {
 public:
-    BrdBalanceWorldScript() : WorldScript("BrdBalanceWorldScript", { WORLDHOOK_ON_AFTER_CONFIG_LOAD }) { }
+    DungeonBrdWorldScript() : WorldScript("DungeonBrdWorldScript", { WORLDHOOK_ON_AFTER_CONFIG_LOAD }) { }
 
     void OnAfterConfigLoad(bool /*reload*/) override
     {
-        config.enabled = sConfigMgr->GetOption<bool>("BrdBalance.Enable", true);
-        config.minRespawn = sConfigMgr->GetOption<uint32>("BrdBalance.MinRespawnSeconds", 300);
-        config.ignoredEntries = ParseEntries(sConfigMgr->GetOption<std::string>("BrdBalance.IgnoreEntries", "9537,9541,28067"));
+        config.enabled = sConfigMgr->GetOption<bool>("DungeonBrd.Enable", true);
+        config.minRespawn = sConfigMgr->GetOption<uint32>("DungeonBrd.MinRespawnSeconds", 300);
+        config.ignoredEntries = ParseEntries(sConfigMgr->GetOption<std::string>("DungeonBrd.IgnoreEntries", "9537,9541,28067"));
 
-        LOG_INFO("server.loading", "mod-brd-balance: {}, minimum respawn {}s, {} ignored entries",
+        LOG_INFO("server.loading", "mod-dungeon-brd: {}, minimum respawn {}s, {} ignored entries",
             config.enabled ? "enabled" : "disabled", config.minRespawn, config.ignoredEntries.size());
     }
 };
 
-class BrdBalanceCreatureScript : public AllCreatureScript
+class DungeonBrdCreatureScript : public AllCreatureScript
 {
 public:
-    BrdBalanceCreatureScript() : AllCreatureScript("BrdBalanceCreatureScript") { }
+    DungeonBrdCreatureScript() : AllCreatureScript("DungeonBrdCreatureScript") { }
 
     // Runs once per creature object. In compatibility respawn mode the same object respawns and
     // keeps the delay; in dynamic mode a fresh creature is added (and adjusted) on every respawn.
@@ -104,8 +104,8 @@ public:
     }
 };
 
-void AddBrdBalanceScripts()
+void AddDungeonBrdScripts()
 {
-    new BrdBalanceWorldScript();
-    new BrdBalanceCreatureScript();
+    new DungeonBrdWorldScript();
+    new DungeonBrdCreatureScript();
 }
