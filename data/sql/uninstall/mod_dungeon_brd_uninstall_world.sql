@@ -1,4 +1,4 @@
--- mod-brd-balance: undo the module's world database changes. Run it by hand on the world
+-- mod-dungeon-brd: undo the module's world database changes. Run it by hand on the world
 -- database after removing the module. It isn't applied automatically: AzerothCore only runs the
 -- module's db-world folder.
 --

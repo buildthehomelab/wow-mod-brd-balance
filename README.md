@@ -1,4 +1,4 @@
-# BRD Balance
+# Dungeon: Blackrock Depths
 
 An [AzerothCore](https://www.azerothcore.org/) (WotLK 3.3.5a) module with balance tweaks for
 Blackrock Depths.
@@ -13,7 +13,7 @@ decays, about a minute after it dies (normal-rank corpse decay is 60 seconds). T
 Keepers are on 5 minutes.
 
 With this module, every creature spawned in Blackrock Depths waits at least 5 minutes before it
-respawns (`BrdBalance.MinRespawnSeconds`). The Reservists now match the Flame Keepers: the room
+respawns (`DungeonBrd.MinRespawnSeconds`). The Reservists now match the Flame Keepers: the room
 still refills behind a slow group, just not while you're still looting. Longer timers, like the
 2 hours on the rest of BRD's trash and the bosses' timers, are never shortened.
 Scripted summons (the Reservists General Angerforge calls in, the Ring of Law waves) are left alone,
@@ -33,10 +33,10 @@ out to about 19% for each regular item. Nothing else in either boss's loot chang
 other creature drops either trinket.
 
 This part is a world database update (`data/sql/db-world/updates`), applied automatically the next
-time the worldserver starts. It isn't covered by `BrdBalance.Enable`. To undo it after removing the
-module, run `data/sql/uninstall/mod_brd_balance_uninstall_world.sql` on the world database by hand.
+time the worldserver starts. It isn't covered by `DungeonBrd.Enable`. To undo it after removing the
+module, run `data/sql/uninstall/mod_dungeon_brd_uninstall_world.sql` on the world database by hand.
 
-## Patch Notes: Blackrock Depths Balance
+## Patch Notes: Blackrock Depths
 
 Category: Dungeons
 
@@ -50,31 +50,31 @@ Category: Dungeons
 
 ## Installation
 
-Clone it into your AzerothCore `modules` folder, **as `mod-brd-balance`**. AzerothCore derives the
+Clone it into your AzerothCore `modules` folder, **as `mod-dungeon-brd`**. AzerothCore derives the
 module's loader name from the folder name:
 
 ```bash
 cd azerothcore-wotlk/modules
-git clone https://github.com/buildthehomelab/wow-mod-brd-balance.git mod-brd-balance
+git clone https://github.com/buildthehomelab/wow-mod-dungeon-brd.git mod-dungeon-brd
 ```
 
-Re-run CMake, rebuild the worldserver, and copy `conf/mod_brd_balance.conf.dist` to
-`mod_brd_balance.conf` in your config directory. Its world database update (the loot swap) is
+Re-run CMake, rebuild the worldserver, and copy `conf/mod_dungeon_brd.conf.dist` to
+`mod_dungeon_brd.conf` in your config directory. Its world database update (the loot swap) is
 applied automatically on the next worldserver start.
 
 To check that it's loaded, look for this line in the worldserver log at startup:
 
 ```
-mod-brd-balance: enabled, minimum respawn 300s, 3 ignored entries
+mod-dungeon-brd: enabled, minimum respawn 300s, 3 ignored entries
 ```
 
 ## Configuration
 
 | Setting | Default | What it does |
 | --- | --- | --- |
-| `BrdBalance.Enable` | `1` | Master switch. |
-| `BrdBalance.MinRespawnSeconds` | `300` | Minimum respawn time (seconds) for BRD creatures. `0` turns it off. |
-| `BrdBalance.IgnoreEntries` | `"9537,9541,28067"` | Creature entries that keep their stock respawn (Hurley Blackbreath, Blackbreath Crony, Dark Iron Brewer). |
+| `DungeonBrd.Enable` | `1` | Master switch. |
+| `DungeonBrd.MinRespawnSeconds` | `300` | Minimum respawn time (seconds) for BRD creatures. `0` turns it off. |
+| `DungeonBrd.IgnoreEntries` | `"9537,9541,28067"` | Creature entries that keep their stock respawn (Hurley Blackbreath, Blackbreath Crony, Dark Iron Brewer). |
 
 ## What the respawn change touches
 
