@@ -3,12 +3,11 @@
  *
  * Balance tweaks for Blackrock Depths (map 230).
  *
- * Respawns: most BRD trash respawns after 2 hours, but the Lyceum (the hall after the Summoners'
- * Tomb, where you kill Shadowforge Flame Keepers for the torches) is stocked with ~200 Anvilrage
- * Reservists whose spawn time is 0. They come back as soon as their corpse decays, which for
- * normal-rank mobs is a minute after death. The four Flame Keepers are on 5 minutes. A group
- * working through the hall gets the start of it repopulated behind them before they reach the
- * braziers.
+ * Respawns: the Lyceum (the hall after the Summoners' Tomb, where you kill Shadowforge Flame
+ * Keepers for the torches) is meant to respawn quickly to keep a group moving, but its ~200
+ * Anvilrage Reservists have a spawn time of 0. They come back as soon as their corpse decays,
+ * which for normal-rank mobs is a minute after death. The four Flame Keepers are on 5 minutes,
+ * which is the default minimum here.
  *
  * Every BRD creature spawned from the database whose spawn time is below MinRespawnSeconds gets
  * that as its respawn delay instead. Spawn times above it are never lowered, scripted summons are
@@ -35,7 +34,7 @@ namespace
     struct Config
     {
         bool enabled = true;
-        uint32 minRespawn = 7200;  // seconds
+        uint32 minRespawn = 300;  // seconds
         std::unordered_set<uint32> ignoredEntries;
     };
 
@@ -70,7 +69,7 @@ public:
     void OnAfterConfigLoad(bool /*reload*/) override
     {
         config.enabled = sConfigMgr->GetOption<bool>("BrdBalance.Enable", true);
-        config.minRespawn = sConfigMgr->GetOption<uint32>("BrdBalance.MinRespawnSeconds", 7200);
+        config.minRespawn = sConfigMgr->GetOption<uint32>("BrdBalance.MinRespawnSeconds", 300);
         config.ignoredEntries = ParseEntries(sConfigMgr->GetOption<std::string>("BrdBalance.IgnoreEntries", "9537,9541,28067"));
 
         LOG_INFO("server.loading", "mod-brd-balance: {}, minimum respawn {}s, {} ignored entries",

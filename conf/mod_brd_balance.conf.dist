@@ -19,12 +19,13 @@ BrdBalance.Enable = 1
 #        Description: Minimum respawn time (seconds) for creatures spawned in Blackrock Depths.
 #                     Stock AzerothCore has the Lyceum's ~200 Anvilrage Reservists on 0 (back
 #                     when the corpse decays, about 1 minute) and the Shadowforge Flame Keepers on
-#                     5 minutes, while the rest of BRD's trash uses 7200. Longer spawn times are
-#                     never shortened. 0 turns this off.
-#        Default:     7200
+#                     5 minutes, while the rest of BRD's trash uses 7200. The default puts the
+#                     Reservists on the Flame Keepers' 5 minutes, so the room still refills behind
+#                     a slow group. Longer spawn times are never shortened. 0 turns this off.
+#        Default:     300
 #
 
-BrdBalance.MinRespawnSeconds = 7200
+BrdBalance.MinRespawnSeconds = 300
 
 #
 #    BrdBalance.IgnoreEntries
