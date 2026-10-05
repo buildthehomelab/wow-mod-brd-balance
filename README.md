@@ -33,8 +33,27 @@ out to about 19% for each regular item. Nothing else in either boss's loot chang
 other creature drops either trinket.
 
 This part is a world database update (`data/sql/db-world/updates`), applied automatically the next
-time the worldserver starts. It isn't covered by `DungeonBrd.Enable`. To undo it after removing the
+time the worldserver starts. The loot swap isn't covered by `DungeonBrd.Enable`. To undo it after removing the
 module, run `data/sql/uninstall/mod_dungeon_brd_uninstall_world.sql` on the world database by hand.
+
+## Iron Hall flames (Magmus)
+
+Six Ironhand Guardian statues line the Iron Hall in three rows of two, and during the Magmus fight
+they breathe fire (**Gout of Flame**). The fire is meant to shoot straight across the hall, so you
+fight Magmus in the gaps between the rows. In stock AzerothCore the damage hits every enemy within
+30 yards of a statue instead. The rows are 45 yards apart, so the circles cover the whole hall and
+there's nowhere safe to stand.
+
+This module limits each statue's damage to a strip straight out in front of it, 10 yards wide
+(`DungeonBrd.IronHallFlameWidth`) and still 30 yards long, so the two statues in a row burn the
+line between them and the space between rows is safe. It also switches the statues off when
+Magmus dies; stock AzerothCore leaves them firing for the rest of the run.
+
+The fire's look is up to the client, so it may not line up with where the damage lands. Trust the
+statue's facing: the strip runs straight out from the statue across the hall.
+
+This needs the module's world database update (two `spell_script_names` rows), applied
+automatically on the next worldserver start and removed by the uninstall SQL.
 
 ## Patch Notes: Blackrock Depths
 
@@ -44,6 +63,10 @@ Category: Dungeons
   **Shadowforge Flame Keepers**, instead of returning about a minute after they die.
 - **Hand of Justice** drops from **General Angerforge** again. **Emperor Dagran Thaurissan** now
   drops **Force of Will** in its place.
+- The **Ironhand Guardians'** **Gout of Flame** in the Iron Hall now shoots straight across the
+  hall instead of burning everything within 30 yards, so the gaps between the rows of statues are
+  safe during **Magmus**.
+- The Ironhand Guardians stop breathing fire once Magmus is dead.
 
 > The Lyceum is supposed to keep you moving, but Reservists coming back before you'd finished
 > looting them was too much.
@@ -59,13 +82,13 @@ git clone https://github.com/buildthehomelab/wow-mod-dungeon-brd.git mod-dungeon
 ```
 
 Re-run CMake, rebuild the worldserver, and copy `conf/mod_dungeon_brd.conf.dist` to
-`mod_dungeon_brd.conf` in your config directory. Its world database update (the loot swap) is
-applied automatically on the next worldserver start.
+`mod_dungeon_brd.conf` in your config directory. Its world database updates (the loot swap and the
+Iron Hall spell scripts) are applied automatically on the next worldserver start.
 
 To check that it's loaded, look for this line in the worldserver log at startup:
 
 ```
-mod-dungeon-brd: enabled, minimum respawn 300s, 3 ignored entries
+mod-dungeon-brd: enabled, minimum respawn 300s, 3 ignored entries, Iron Hall flame width 10
 ```
 
 ## Configuration
@@ -75,6 +98,7 @@ mod-dungeon-brd: enabled, minimum respawn 300s, 3 ignored entries
 | `DungeonBrd.Enable` | `1` | Master switch. |
 | `DungeonBrd.MinRespawnSeconds` | `300` | Minimum respawn time (seconds) for BRD creatures. `0` turns it off. |
 | `DungeonBrd.IgnoreEntries` | `"9537,9541,28067"` | Creature entries that keep their stock respawn (Hurley Blackbreath, Blackbreath Crony, Dark Iron Brewer). |
+| `DungeonBrd.IronHallFlameWidth` | `10` | Width in yards of each Ironhand Guardian's flame strip during Magmus. `0` keeps the stock 30-yard circle. |
 
 ## What the respawn change touches
 

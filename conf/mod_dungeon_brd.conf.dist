@@ -36,3 +36,16 @@ DungeonBrd.MinRespawnSeconds = 300
 #
 
 DungeonBrd.IgnoreEntries = "9537,9541,28067"
+
+#
+#    DungeonBrd.IronHallFlameWidth
+#        Description: Width (yards) of each Ironhand Guardian's Gout of Flame during Magmus. Stock
+#                     AzerothCore hits everything within 30 yards of every statue, which covers
+#                     the whole Iron Hall. With a width set, each statue only burns a strip straight
+#                     out in front of it (still 30 yards long), so the gaps between the rows of
+#                     statues are safe. 0 keeps the stock 30-yard circle. Either way the statues
+#                     stop once Magmus is dead (stock leaves them firing for the rest of the run).
+#        Default:     10
+#
+
+DungeonBrd.IronHallFlameWidth = 10
