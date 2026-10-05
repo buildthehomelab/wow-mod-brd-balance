@@ -21,12 +21,29 @@ and the Grim Guzzler event NPCs and the Brewfest brewer keep their stock timers.
 isn't changed: the respawn delay is set on each creature as it's added to the map, so turning the
 module off restores stock behavior.
 
+## Hand of Justice on General Angerforge
+
+**Hand of Justice** used to drop from General Angerforge, until later vanilla moved it to Emperor
+Dagran Thaurissan and gave Angerforge **Force of Will** instead. This module moves them back:
+Angerforge drops Hand of Justice and the Emperor drops Force of Will.
+
+Each trinket takes the other's slot in the same loot group, so the odds barely move. Angerforge
+drops one of 5 equal items (20% each). The Emperor drops 2 items from a pool of 11, which works
+out to about 19% for each regular item. Nothing else in either boss's loot changes, and no
+other creature drops either trinket.
+
+This part is a world database update (`data/sql/db-world/updates`), applied automatically the next
+time the worldserver starts. It isn't covered by `BrdBalance.Enable`. To undo it after removing the
+module, run `data/sql/uninstall/mod_brd_balance_uninstall_world.sql` on the world database by hand.
+
 ## Patch Notes: Blackrock Depths Balance
 
 Category: Dungeons
 
 - **Anvilrage Reservists** in the Lyceum now take 5 minutes to respawn, the same as the
   **Shadowforge Flame Keepers**, instead of returning about a minute after they die.
+- **Hand of Justice** drops from **General Angerforge** again. **Emperor Dagran Thaurissan** now
+  drops **Force of Will** in its place.
 
 > The Lyceum is supposed to keep you moving, but Reservists coming back before you'd finished
 > looting them was too much.
@@ -42,7 +59,8 @@ git clone https://github.com/buildthehomelab/wow-mod-brd-balance.git mod-brd-bal
 ```
 
 Re-run CMake, rebuild the worldserver, and copy `conf/mod_brd_balance.conf.dist` to
-`mod_brd_balance.conf` in your config directory. The module needs no SQL.
+`mod_brd_balance.conf` in your config directory. Its world database update (the loot swap) is
+applied automatically on the next worldserver start.
 
 To check that it's loaded, look for this line in the worldserver log at startup:
 
@@ -58,7 +76,7 @@ mod-brd-balance: enabled, minimum respawn 300s, 3 ignored entries
 | `BrdBalance.MinRespawnSeconds` | `300` | Minimum respawn time (seconds) for BRD creatures. `0` turns it off. |
 | `BrdBalance.IgnoreEntries` | `"9537,9541,28067"` | Creature entries that keep their stock respawn (Hurley Blackbreath, Blackbreath Crony, Dark Iron Brewer). |
 
-## What it changes
+## What the respawn change touches
 
 In the server's world database (map 230), the spawns with short respawns are:
 
