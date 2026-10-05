@@ -1,0 +1,37 @@
+[worldserver]
+
+########################################
+# mod-brd-balance
+#
+# Balance tweaks for Blackrock Depths.
+########################################
+
+#
+#    BrdBalance.Enable
+#        Description: Master switch.
+#        Default:     1
+#
+
+BrdBalance.Enable = 1
+
+#
+#    BrdBalance.MinRespawnSeconds
+#        Description: Minimum respawn time (seconds) for creatures spawned in Blackrock Depths.
+#                     Stock AzerothCore has the Lyceum's ~200 Anvilrage Reservists on 0 (back
+#                     when the corpse decays, about 1 minute) and the Shadowforge Flame Keepers on
+#                     5 minutes, while the rest of BRD's trash uses 7200. Longer spawn times are
+#                     never shortened. 0 turns this off.
+#        Default:     7200
+#
+
+BrdBalance.MinRespawnSeconds = 7200
+
+#
+#    BrdBalance.IgnoreEntries
+#        Description: Comma-separated creature entries that keep their stock respawn time.
+#                     Default: Hurley Blackbreath (9537) and Blackbreath Crony (9541) from the
+#                     Grim Guzzler event, and the Brewfest Dark Iron Brewer (28067).
+#        Default:     "9537,9541,28067"
+#
+
+BrdBalance.IgnoreEntries = "9537,9541,28067"
