@@ -71,6 +71,11 @@ Category: Dungeons
 > The Lyceum is supposed to keep you moving, but Reservists coming back before you'd finished
 > looting them was too much.
 
+## Requirements
+
+- [AzerothCore](https://www.azerothcore.org/) wotlk (master) and a WoW 3.3.5a (12340) client.
+- No client patch and no other modules. It doesn't use mod-playerbots or mod-individual-progression.
+
 ## Installation
 
 Clone it into your AzerothCore `modules` folder, **as `mod-dungeon-brd`**. AzerothCore derives the
@@ -112,6 +117,23 @@ In the server's world database (map 230), the spawns with short respawns are:
 | Hurley Blackbreath / Blackbreath Crony | 9537 / 9541 | 4 | 300 s (ignored by default) |
 | Dark Iron Brewer | 28067 | 1 | 180 s (ignored by default) |
 
+## Troubleshooting
+
+- **Reservists still come back after about a minute:** the module isn't loaded or is switched off.
+  Look for the `mod-dungeon-brd: enabled` line in the worldserver log at startup, and check
+  `DungeonBrd.Enable` and `DungeonBrd.MinRespawnSeconds` in `mod_dungeon_brd.conf`.
+- **The module doesn't build or load:** the folder must be named `mod-dungeon-brd`, because
+  AzerothCore derives the loader name from it. Re-run CMake after cloning.
+- **Hand of Justice and Force of Will are still on their stock bosses:** the loot swap is a world
+  database update that runs on the next worldserver start. `DungeonBrd.Enable` doesn't turn it
+  off; run the uninstall SQL by hand to undo it.
+- **The Iron Hall is still burning everywhere:** the two `spell_script_names` rows from the
+  module's SQL are missing, or `DungeonBrd.IronHallFlameWidth` is `0`.
+
+## Credits
+
+Author: [buildthehomelab](https://github.com/buildthehomelab)
+
 ## License
 
-MIT
+MIT, see [LICENSE](LICENSE).
